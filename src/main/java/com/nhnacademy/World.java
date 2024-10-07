@@ -3,6 +3,7 @@ package com.nhnacademy;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.swing.JPanel;
 
@@ -31,6 +32,14 @@ public class World extends JPanel {
      * @param ball 추가할 공
      */
     public void addBall(Ball ball) {
+        if (ball == null) {
+            throw new NullPointerException();
+        }
+
+        if (ballList.contains(ball)) {
+            throw new AlreadyExistException();
+        }
+
         ballList.add(ball);
         log.info("Add ball : {}", ball);
     }
@@ -41,6 +50,14 @@ public class World extends JPanel {
      * @param ball 제거할 공
      */
     public void removeBall(Ball ball) {
+        if (ball == null) {
+            throw new NullPointerException();
+        }
+
+        if (!ballList.contains(ball)) {
+            throw new NoSuchElementException();
+        }
+
         ballList.remove(ball);
         log.info("Remove ball : {}", ball);
     }
@@ -51,6 +68,10 @@ public class World extends JPanel {
      * @param index 제거할 공의 인덱스
      */
     public void removeBall(int index) {
+        if (index < 0 || ballList.size() <= index) {
+            throw new IndexOutOfBoundsException();
+        }
+
         ballList.remove(index);
 
         log.info("Remove ball : {}", index);
@@ -72,6 +93,10 @@ public class World extends JPanel {
      * @return 해당 인덱스의 공
      */
     public Ball getBall(int index) {
+        if (index < 0 || ballList.size() <= index) {
+            throw new IndexOutOfBoundsException();
+        }
+
         return ballList.get(index);
     }
 
