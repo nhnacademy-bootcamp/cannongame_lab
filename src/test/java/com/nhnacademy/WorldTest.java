@@ -1,6 +1,13 @@
 package com.nhnacademy;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.Color;
+import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -65,5 +72,36 @@ public class WorldTest {
         world.addBall(ball2);
         assertEquals(ball1, world.getBall(0));
         assertEquals(ball2, world.getBall(1));
+    }
+
+    public static void main(String[] args) {
+        final int WIDTH = 500;
+        final int HEIGHT = 400;
+        final int BALL_COUNT = 10;
+        final int MIN_RADIUS = 10;
+        final int MAX_RADIUS = 50;
+        final Color[] colors = { Color.BLACK, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.WHITE };
+
+        JFrame frame = new JFrame();
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setSize(WIDTH, HEIGHT);
+
+        World world = new World();
+        frame.add(world);
+        frame.setVisible(true);
+
+        Random random = new Random();
+
+        for (int i = 0; i < BALL_COUNT; i++) {
+            int x = random.nextInt(WIDTH);
+            int y = random.nextInt(HEIGHT);
+            int radius = MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1);
+            Color color = colors[random.nextInt(colors.length)];
+
+            world.addBall(new PaintableBall(x, y, radius, color));
+        }
+
+        frame.repaint();
     }
 }
