@@ -7,6 +7,8 @@ import java.awt.Graphics;
  * PaintableBall 클래스는 Ball 클래스를 확장하여, 공의 색상을 관리하고, 그래픽스에서 공을 그리는 기능을 제공합니다.
  */
 public class PaintableBall extends Ball {
+    public static final Color DEFAULT_COLOR = Color.BLACK;
+
     private Color color; // 공의 색상
 
     /**
@@ -21,6 +23,17 @@ public class PaintableBall extends Ball {
         super(x, y, radius);
 
         this.color = color;
+    }
+
+    /**
+     * PaintableBall 객체를 생성합니다.
+     *
+     * @param x      공의 x 좌표
+     * @param y      공의 y 좌표
+     * @param radius 공의 반지름
+     */
+    public PaintableBall(int x, int y, int radius) {
+        this(x, y, radius, DEFAULT_COLOR);
     }
 
     /**

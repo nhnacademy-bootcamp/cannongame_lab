@@ -33,6 +33,17 @@ public class PaintableBallTest extends JFrame {
     }
 
     @Test
+    void testDefaultColorConstructor() {
+        PaintableBall defaultColorBall = new PaintableBall(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS);
+
+        // 생성자가 올바르게 설정되었는지 확인
+        assertEquals(DEFAULT_X, defaultColorBall.getX());
+        assertEquals(DEFAULT_Y, defaultColorBall.getY());
+        assertEquals(DEFAULT_RADIUS, defaultColorBall.getRadius());
+        assertEquals(PaintableBall.DEFAULT_COLOR, defaultColorBall.getColor());
+    }
+
+    @Test
     void testGetColor() {
         // getColor 메서드가 올바르게 색상을 반환하는지 확인
         assertEquals(Color.RED, paintableBall.getColor());
