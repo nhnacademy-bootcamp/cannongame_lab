@@ -24,9 +24,21 @@ public class Ball {
      * @param radius ball의 반지름 설정값
      */
     public Ball(int x, int y, int radius) {
+        if (radius <= 0) {
+            throw new InvalidSizeException();
+        }
+
+        if ((x < Integer.MIN_VALUE + radius)
+                || (x > Integer.MAX_VALUE - radius)
+                || (y < Integer.MIN_VALUE + radius)
+                || (y > Integer.MAX_VALUE - radius)) {
+            throw new OutOfBoundsException();
+        }
+
         this.x = x;
         this.y = y;
         this.radius = radius;
+
     }
 
     /**

@@ -1,8 +1,14 @@
 package com.nhnacademy;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class BallTest {
 
@@ -77,5 +83,67 @@ public class BallTest {
     void testToString() {
         // toString 메서드가 올바르게 동작하는지 확인
         assertEquals("[(10,20),5]", ball.toString());
+    }
+
+    @ParameterizedTest
+    @MethodSource("legalCreationParamsProvider")
+    void testLegalCreation(int x, int y, int radius) {
+        assertDoesNotThrow(() -> {
+            new Ball(x, y, radius);
+        });
+    }
+
+    static Stream<Arguments> legalCreationParamsProvider() {
+        return Stream.of(
+                Arguments.of(0, 0, 1),
+                Arguments.of(0, 0, Integer.MAX_VALUE),
+                Arguments.of(100, 100, 100),
+                Arguments.of(100, -100, 100),
+                Arguments.of(-100, 100, 100),
+                Arguments.of(-100, -100, 100),
+                Arguments.of(Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 1, 1),
+                Arguments.of(Integer.MIN_VALUE + 1, Integer.MAX_VALUE - 1, 1),
+                Arguments.of(Integer.MAX_VALUE - 1, Integer.MIN_VALUE + 1, 1),
+                Arguments.of(Integer.MAX_VALUE - 1, Integer.MAX_VALUE - 1, 1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("outOfBoundsExceptionProvider")
+    void testOutOfBoundsException(int x, int y, int radius) {
+        assertThrowsExactly(OutOfBoundsException.class, () -> {
+            new Ball(x, y, radius);
+        });
+    }
+
+    static Stream<Arguments> outOfBoundsExceptionProvider() {
+        return Stream.of(
+                Arguments.of(Integer.MAX_VALUE, 0, 1),
+                Arguments.of(0, Integer.MAX_VALUE, 1),
+                Arguments.of(Integer.MIN_VALUE, 0, 1),
+                Arguments.of(0, Integer.MIN_VALUE, 1),
+                Arguments.of(Integer.MIN_VALUE, Integer.MIN_VALUE, 1),
+                Arguments.of(Integer.MAX_VALUE, Integer.MIN_VALUE, 1),
+                Arguments.of(Integer.MIN_VALUE, Integer.MAX_VALUE, 1),
+                Arguments.of(Integer.MAX_VALUE, Integer.MAX_VALUE, 1),
+                Arguments.of(Integer.MAX_VALUE, 0, Integer.MAX_VALUE),
+                Arguments.of(0, Integer.MAX_VALUE, Integer.MAX_VALUE),
+                Arguments.of(Integer.MIN_VALUE, 0, Integer.MAX_VALUE),
+                Arguments.of(0, Integer.MIN_VALUE, Integer.MAX_VALUE));
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidSizeExceptionProvider")
+    void testInvalidSizeException(int x, int y, int radius) {
+        assertThrowsExactly(InvalidSizeException.class, () -> {
+            new Ball(x, y, radius);
+        });
+    }
+
+    static Stream<Arguments> invalidSizeExceptionProvider() {
+        return Stream.of(
+                Arguments.of(0, 0, 0),
+                Arguments.of(0, 0, -1),
+                Arguments.of(0, 0, -100),
+                Arguments.of(0, 0, Integer.MIN_VALUE));
     }
 }
