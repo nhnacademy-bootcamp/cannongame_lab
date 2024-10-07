@@ -32,6 +32,7 @@ public class World extends JPanel {
      */
     public void addBall(Ball ball) {
         ballList.add(ball);
+        log.info("Add ball : {}", ball);
     }
 
     /**
@@ -41,6 +42,7 @@ public class World extends JPanel {
      */
     public void removeBall(Ball ball) {
         ballList.remove(ball);
+        log.info("Remove ball : {}", ball);
     }
 
     /**
@@ -50,6 +52,8 @@ public class World extends JPanel {
      */
     public void removeBall(int index) {
         ballList.remove(index);
+
+        log.info("Remove ball : {}", index);
     }
 
     /**
@@ -77,8 +81,8 @@ public class World extends JPanel {
      * @param g 그래픽스 객체
      */
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paint(Graphics g) {
+        super.paint(g);
 
         for (Ball ball : ballList) {
             if (ball instanceof PaintableBall) {
