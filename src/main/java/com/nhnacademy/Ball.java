@@ -54,6 +54,61 @@ public class Ball {
     }
 
     /**
+     * 볼이 차지하는 영역중 X축 상에서 가장 작은 값을 반환한다.
+     *
+     * @return X축 상에서 가장 작은 값
+     */
+    public int getMinX() {
+        return getX() - getRadius();
+    }
+
+    /**
+     * 볼이 차지하는 영역중 X축 상에서 가장 큰 값을 반환한다.
+     *
+     * @return X축 상에서 가장 큰 값
+     */
+    public int getMaxX() {
+        return getX() + getRadius();
+    }
+
+    /**
+     * 볼이 차지하는 영역중 Y축 상에서 가장 작은 값을 반환한다.
+     *
+     * @return Y축 상에서 가장 작은 값
+     */
+    public int getMinY() {
+        return getY() - getRadius();
+    }
+
+    /**
+     * 볼이 차지하는 영역중 Y축상에서 가장 큰 값을 반환한다.
+     *
+     * @return Y축 상에서 가장 큰 값
+     */
+    public int getMaxY() {
+        return getY() + getRadius();
+    }
+
+    /**
+     * 볼이 차지하는 영역의 넓이를 반환한다.
+     *
+     * @return 영역의 넓이
+     */
+
+    public int getWidth() {
+        return 2 * getRadius();
+    }
+
+    /**
+     * 볼이 차지하는 영역의 높이를 반환한다.
+     *
+     * @return 영역의 높이
+     */
+    public int getHeight() {
+        return 2 * getRadius();
+    }
+
+    /**
      * @return ball의 정보를 문자열로 변환해 반환한다.
      */
     @Override
